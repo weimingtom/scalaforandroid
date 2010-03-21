@@ -1,0 +1,4 @@
+glob:bin/*
+glob:*.swp
+glob:*~
+glob:make.bat
