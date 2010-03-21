@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ScalaForAndroid" default="help">
 
+    <!-- This file can be used to override the sdk.dir property -->
+    <property file="local.properties" />
+
+    <property name="sdk.dir" value="/android-sdk/" />
     <property name="src.dir" value="src" />
     <property name="out.base" value="bin" />
     <property name="out.dir" value="${out.base}/classes" />
@@ -23,13 +27,37 @@
         <jar basedir="${out.dir}" destfile="${out.jar}" />
     </target>
 
-
     <target name="package" depends="jar">
         <zip destfile="${out.zip}" includes="README,${out.jar},libs/*.jar">
             <fileset dir="." includes="README,LICENSE" />
             <fileset dir="${out.base}" includes="ScalaForAndroid.jar" />
             <fileset dir="libs" includes="*.jar" excludes="ant.jar" />
         </zip>
+    </target>
+
+    <target name="install" depends="jar">
+        <mkdir dir="${sdk.dir}/sfa/libs" />
+        <copy todir="${sdk.dir}/sfa/libs" flatten="true" overwrite="true">
+            <fileset dir="." includes="README,LICENSE" />
+            <fileset dir="${out.base}" includes="ScalaForAndroid.jar" />
+            <fileset dir="libs" includes="*.jar" excludes="ant.jar" />
+        </copy>
+    </target>
+
+    <target name="help">
+        <!-- displays starts at col 13
+              |13                                                              80| -->
+        <echo>Scala for Android Ant Build. Available targets:</echo>
+        <echo>   help:      Displays this help.</echo>
+        <echo>   compile:   Compiles the class files</echo>
+        <echo>   jar:       Builds the ${out.jar} file</echo>
+        <echo>   package:   Combines all the needed files to put Scala for</echo>
+        <echo>              Android on an other machine</echo>
+        <echo>   install:   Puts all the jar files in the right place.</echo>
+        <echo>              NOTE: If ${sdk.dir} is not your android sdk</echo>
+        <echo>              directory, then either edit build.xml or create a</echo>
+        <echo>              local.properties file to override the $${sdk-dir}</echo>
+        <echo>              property.</echo>
     </target>
 
 </project>
