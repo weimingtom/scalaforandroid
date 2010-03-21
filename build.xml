@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ScalaForAndroid" default="help">
+
+    <property name="src.dir" value="src" />
+    <property name="out.dir" value="bin/classes" />
+
+    <target name="compile">
+        <taskdef resource="scala/tools/ant/antlib.xml"
+           classpath="libs/scala-compiler.jar:libs/scala-android.jar" />
+        <scalac force="changed" deprecation="on"
+                srcdir="${src.dir}" includes="**/*.scala"
+                destdir="${out.dir}">
+            <classpath>
+                <fileset dir="libs" includes="*.jar"/>
+            </classpath>
+        </scalac>
+    </target>
+
+</project>
