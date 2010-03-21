@@ -1,0 +1,36 @@
+
+Scala for Android
+
+------------------------------
+
+Installation:
+
+1. In your android sdk directory, create directory named sfa, and in that
+directory create another directory named libs. So if your android sdk directory
+were c:\android-sdk, then you would have c:\android-sdk\sfa\libs.
+
+2. Put all the .jar files in the ScalaForAndroid.zip file into the sfa/libs
+directory.
+
+How to Use:
+
+1. Use the android sdk to create a project 
+
+2. In your build.xml file:
+
+   Add the following inside the <path id="android.antlibs">
+
+        <pathelement path="${sdk.dir}/sfa/libs/ScalaForAndroid.jar" />
+        <pathelement path="${sdk.dir}/sfa/libs/scala-library.jar" />
+        <pathelement path="${sdk.dir}/sfa/libs/scala-compiler.jar" />
+        <pathelement path="${sdk.dir}/sfa/libs/proguard.jar" />
+
+   Add the following after <setup />
+
+        <taskdef name="setupscala"
+           classname="com.ergonlabs.ScalaForAndroid.SetupScalaTask"
+            classpathref="android.antlibs"
+        />
+        <setupscala sfapath="..\ScalaForAndroid" />
+
+3. Put some .scala files in your src directory and build using ant.

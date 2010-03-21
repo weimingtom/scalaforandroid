@@ -1,0 +1,15 @@
+
+The contents of the src directory and ScalaForAndroid.jar are under the MIT license:
+http://www.opensource.org/licenses/mit-license.php
+
+
+Apache Ant is available under the Apache License Version 2.0
+http://ant.apache.org/license.html
+
+
+Proguard is available under the GNU General Public License, version 2
+http://proguard.sourceforge.net/GPL.html
+
+Scala compiler and library are available uner the Scala License
+http://www.scala-lang.org/node/146
+

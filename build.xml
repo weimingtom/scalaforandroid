@@ -2,7 +2,10 @@
 <project name="ScalaForAndroid" default="help">
 
     <property name="src.dir" value="src" />
-    <property name="out.dir" value="bin/classes" />
+    <property name="out.base" value="bin" />
+    <property name="out.dir" value="${out.base}/classes" />
+    <property name="out.jar" value="${out.base}/ScalaForAndroid.jar" />
+    <property name="out.zip" value="${out.base}/ScalaForAndroid.zip" />
 
     <target name="compile">
         <taskdef resource="scala/tools/ant/antlib.xml"
@@ -14,6 +17,19 @@
                 <fileset dir="libs" includes="*.jar"/>
             </classpath>
         </scalac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar basedir="${out.dir}" destfile="${out.jar}" />
+    </target>
+
+
+    <target name="package" depends="jar">
+        <zip destfile="${out.zip}" includes="README,${out.jar},libs/*.jar">
+            <fileset dir="." includes="README,LICENSE" />
+            <fileset dir="${out.base}" includes="ScalaForAndroid.jar" />
+            <fileset dir="libs" includes="*.jar" excludes="ant.jar" />
+        </zip>
     </target>
 
 </project>
