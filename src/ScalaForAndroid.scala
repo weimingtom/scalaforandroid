@@ -48,9 +48,9 @@ class SetupScalaTask extends Task {
         
         val path = scala.createClasspath
         path.createPathElement setLocation getFile("${sfa.android.jar}")
-        path addFileset newFileSet("${sfa.bin.classes.dir}", null)
-        path addFileset newFileSet("${sfa.libs.dir}", "*.jar")
-        path addFileset newFileSet("${sfa.dir}/libs", "scala-android.jar")
+        path addFileset newFileSet("${sfa.bin.classes.dir}", null, "scala-android.jar")
+        path addFileset newFileSet("${sfa.libs.dir}", "*.jar", null)
+        path addFileset newFileSet("${sfa.dir}/libs", "scala-android.jar", null)
 
         val target = new Target
         target setName "compile-scala"
@@ -61,10 +61,11 @@ class SetupScalaTask extends Task {
         getProject addTarget target
     }
 
-    private def newFileSet(dir:String, includes:String) : FileSet = {
+    private def newFileSet(dir:String, includes:String, excludes:String) : FileSet = {
         val fs = new FileSet
         fs setDir getFile(dir)
         if (includes != null) fs.setIncludes(includes)
+        if (excludes != null) fs.setExcludes(excludes)
         return fs
     }
 
@@ -76,7 +77,7 @@ class SetupScalaTask extends Task {
         treeshake setWarn false
         treeshake setNote false
 
-        treeshake addConfiguredInjar path("${sfa.bin.classes.dir}", null)
+        treeshake addConfiguredInjar path("${sfa.bin.classes.dir}", "!scala/**")
         treeshake addConfiguredInjar path("${sfa.dir}/libs/scala-android.jar", "!META-INF/MANIFEST.MF,!library.properties")
 
         treeshake addConfiguredOutjar path("${sfa.bin.classes.dir}.min", null)
