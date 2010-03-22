@@ -95,16 +95,25 @@ class SetupScalaTask extends Task {
 
         val mkdir = getProject.createTask("mkdir").asInstanceOf[Mkdir]
         mkdir setDir getFile("${sfa.bin.classes.dir}.min")
-        val rm = getProject.createTask("delete").asInstanceOf[Delete]
-        rm setFile getFile("${sfa.bin.classes.dir}/scala-android.jar")
-        rm setQuiet true
+        target addTask mkdir
+
+        if (getFile("${sfa.bin.classes.dir}/scala-android.jar").isFile()) {
+          val rm1 = getProject.createTask("delete").asInstanceOf[Delete]
+          rm1 setFile getFile("${sfa.bin.classes.dir}/scala-android.jar")
+          target addTask rm1
+        }
+
+        if (getFile("${sfa.bin.classes.dir}.min/scala-android.jar").isFile()) {
+          val rm2 = getProject.createTask("delete").asInstanceOf[Delete]
+          rm2 setFile getFile("${sfa.bin.classes.dir}.min/scala-android.jar")
+          target addTask rm2
+        }
+
         val cp = getProject.createTask("copy").asInstanceOf[Copy]
         cp setFile  getFile("${sfa.bin.classes.dir}.min/scala-android.jar")
         cp setTofile getFile("${sfa.bin.classes.dir}/scala-android.jar")
         cp setFailOnError false
 
-        target addTask mkdir
-        target addTask rm
         target addTask treeshake
         target addTask cp
         
