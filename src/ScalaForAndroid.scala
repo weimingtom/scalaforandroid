@@ -141,9 +141,11 @@ class SetupScalaTask extends Task {
 
     private def addProperties {
         getProject getProperty "target" match {
-            case "android-3" => addAndroid15properties
-            case "android-7" => addAndroid21properties
-            case _ => throw new BuildException("Unsupported android build target. Only 1.5 and 2.1 are supported.")
+            case "android-3" => addAndroid15properties // v1.5
+            case "android-4" => addAndroid21properties // v1.6
+            case "android-6" => addAndroid21properties // v2.0.1
+            case "android-7" => addAndroid21properties // v2.1
+            case _ => throw new BuildException("Unsupported android build target. Only 1.5, 1.6, 2.0.1, and 2.1 are supported.")
         }
     }
 
