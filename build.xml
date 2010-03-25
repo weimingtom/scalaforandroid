@@ -14,6 +14,7 @@
     <target name="compile">
         <taskdef resource="scala/tools/ant/antlib.xml"
            classpath="libs/scala-compiler.jar:libs/scala-android.jar" />
+        <mkdir dir="${out.dir}" />
         <scalac force="changed" deprecation="on"
                 srcdir="${src.dir}" includes="**/*.scala"
                 destdir="${out.dir}">
