@@ -160,7 +160,10 @@ class SetupScalaTask extends Task {
     }
 
     private def addAndroid15properties {
-        addAndroidProperties("source-location", "out-classes-location", "android-jar", "out-folder", "application-package", "external-libs-folder")
+        if (null != (getProject() getProperty "source-location"))
+          addAndroidProperties("source-location", "out-classes-location", "android-jar", "out-folder", "application-package", "external-libs-folder")
+        else
+          addAndroid21properties
     }
 
     private def addAndroid21properties {
